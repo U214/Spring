@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PcInfoDAO">
+	<insert id="insertPcInfo" parameterType="pcInfo">
+		<![CDATA[
+			INSERT INTO PC_INFO_TB(PC_CD, ADDR_MAC, PC_NM, ADDR_IP, ID)
+			VALUES(#{pcCode}, #{macAddress}, #{pcName}, #{ipAddress}, #{userId})
+		]]>
+	</insert>
+
+	<update id="updatePcInfo">
+		<![CDATA[
+			UPDATE PC_INFO_TB SET
+			ADDR_MAC = #{macAddress},
+			PC_NM = #{pcName},
+			ADDR_IP = #{ipAddress}
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</update>
+	
+	<delete id="deletePcInfo">
+		<![CDATA[
+			DELETE PC_INFO_TB
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</delete>
+	
+	<select id="getPcInfo" resultType="pcInfo">
+		<![CDATA[
+			SELECT *
+			FROM PC_INFO_TB
+			WHERE ADDR_MAC = #{macAddress}
+		]]>
+	</select>
+</mapper>

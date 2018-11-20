@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PcDetailDAO">
+	<insert id="insertPcDetail" parameterType="pcDetail">
+		<![CDATA[
+			INSERT INTO PC_DETAIL_TB(
+			PC_CD, 
+			DATACHK_FL, 
+			MAKER_NM, 
+			MODEL_NM, 
+			OS_NM, 
+			BIOS_NM, 
+			SIZE_DISK, 
+			SIZE_MEM, 
+			SIZE_VERT, 
+			INSTALL_DT)
+			VALUES(
+			#{pcCode}, 
+			#{dataCheckFlag}, 
+			#{makerName}, 
+			#{modelName}, 
+			#{osName}, 
+			#{biosName}, 
+			#{diskSize}, 
+			#{memorySize}, 
+			#{virtualMemorySize}, 
+			#{installDate})
+		]]>
+	</insert>
+
+	<update id="updatePcDetail">
+		<![CDATA[
+			UPDATE PC_DETAIL_TB SET
+			DATACHK_FL = #{dataCheckFlag},
+			MAKER_NM = #{makerName},
+			MODEL_NM = #{modelName},
+			OS_NM = #{osName},
+			BIOS_NM = #{biosName},
+			SIZE_DISK = #{diskSize},
+			SIZE_MEM = #{memorySize},
+			SIZE_VERT = #{virtualMemorySize},
+			INSTALL_DT = #{installDate},
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</update>
+	
+	<delete id="deletePcDetail">
+		<![CDATA[
+			DELETE PC_DETAIL_TB
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</delete>
+	
+	<select id="getPcDetail" resultType="pcDetail">
+		<![CDATA[
+			SELECT *
+			FROM PC_DETAIL_TB
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</select>
+</mapper>

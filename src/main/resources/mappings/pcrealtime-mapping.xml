@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PcRealTimeDAO">
+	<insert id="insertPcRealtime" parameterType="pcRealtime">
+		<![CDATA[
+			INSERT INTO PC_REALTIME_TB(
+			PC_CD, 
+			USAGE_CPU, 
+			TEMP1_CPU, 
+			TEMP2_CPU, 
+			USAGE_DISK, 
+			USAGE_MEM, 
+			USAGE_VERT)
+			VALUES(
+			#{pcCode}, 
+			#{cpuUsage}, 
+			#{cpuTemperature1}, 
+			#{cpuTemperature1}, 
+			#{diskUsage}, 
+			#{memoryUsage}, 
+			#{virtualMemoryUsage})
+		]]>
+	</insert>
+	
+	<delete id="deletePcRealtime">
+		<![CDATA[
+			DELETE PC_REALTIME_TB
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</delete>
+	
+	<select id="getPcRealtime" resultType="pcRealtime">
+		<![CDATA[
+			SELECT *
+			FROM PC_REALTIME_TB
+			WHERE PC_CD = #{pcCode}
+		]]>
+	</select>
+	
+	<select id="getPcRealtimeList" resultType="pcRealtime">
+		<![CDATA[
+			SELECT *
+			FROM PC_REALTIME_TB
+			WHERE PC_CD = #{pcCode}
+			ORDER BY SEQ DESC
+		]]>
+	</select>
+</mapper>
