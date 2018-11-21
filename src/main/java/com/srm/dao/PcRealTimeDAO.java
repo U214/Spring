@@ -3,17 +3,17 @@ package com.srm.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.srm.domain.PcInfoVO;
 import com.srm.domain.PcRealTimeVO;
-import com.srm.util.SqlSessionFactoryBean;
 
+@Repository("PcRealTimeDAO")
 public class PcRealTimeDAO {
 	private SqlSession mybatis;
 	
 	public PcRealTimeDAO()
 	{
-		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
 	}
 	
 	public void insertPcRealTime(PcRealTimeVO vo)

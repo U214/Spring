@@ -1,59 +1,54 @@
 package com.srm.web;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.srm.domain.UserVO;
 import com.srm.service.impl.UserServiceImpl;
 import com.srm.util.Encryption;
 
-@RestController
+@Controller
 public class UserController {
 	
-	@RequestMapping(value="/login.do", method=RequestMethod.GET)
-	public String loginView(HttpServletRequest request, Encryption ec)
+	@RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
+	public ModelAndView loginView(
+			HttpServletRequest request,
+			ModelAndView mav,
+			Encryption encryption) throws Exception 
 	{
-		try {
-			ec.createKeyRSA(request);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		encryption.createKeyRSA(request);
 		
-		return "login.jsp";
+		mav.addObject("publicKeyModulus", request.getAttribute("publicKeyModulus"));
+		mav.addObject("publicKeyExponent", request.getAttribute("publicKeyExponent"));
+		mav.setViewName("login");
+		return mav;
 	}
 	
 	
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(
 			@ModelAttribute @Valid UserVO vo,
 			BindingResult bindingResult,
 			UserServiceImpl service, 
-			Encryption ec,
+			Encryption encryption,
 			HttpServletRequest request,
-			HttpSession session)
+			HttpSession session) throws Exception 
 	{
-		ec.decryptToRSA(request);
-		vo.setPassword(ec.encryptToSha512((String)request.getAttribute("username")));
+		encryption.decryptToRSA(request);
+		vo.setPassword(encryption.encryptToSha512((String)request.getAttribute("username")));
 		
 		service.loginCheck(vo);
 		
-		return "main.do";
+		return "main";
 	}
 	
 	@ExceptionHandler(Exception.class)

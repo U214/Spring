@@ -1,0 +1,102 @@
+
+
+.download-icon {
+ border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: 36px;
+  height: 90px;
+  line-height: 90px;
+  width: 90px;  
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  background-color: #78e4ff;
+}
+
+.our-step .col-sm-4:hover .download-icon {
+  background-color: #0080ff;
+}
+
+.our-step .col-sm-4 {
+
+}
+
+.our-step .col-sm-4:nth-child(4), 
+.our-step .col-sm-4:nth-child(5), 
+.our-step .col-sm-4:nth-child(6) {
+  border-bottom:0;
+  padding-top: 60px;
+}
+
+.our-step .col-sm-4:nth-child(3), 
+.our-step .col-sm-4:nth-child(6) {
+  border-right:0;
+}
+
+.download-info h3 {
+  margin-top: 35px;
+
+}
+
+.download-info hs{
+   
+   font-size: 30px;
+   color: #26b2dc;
+}
+#down{
+width: 1200px; height: 50px;
+       padding: 5px;
+      margin: 10px;   
+   
+}
+ #right{
+ position:absolute;
+ left:600%; right: 90%; width:90px; height:90px;
+ margin-top:-20px; margin-left:-15px;
+
+ 
+ }
+ 
+  #left{
+ position:absolute;
+ left:600%; right: 90%; width:90px; height:90px;
+ margin-top:-20px; margin-left:-157px;
+
+ 
+ }
+
+.install{
+   width: 350px; height: 200px; background: url("../images/step/5-1.png")
+ no-repeat;
+   
+}
+
+.exe{
+   width: 350px; height: 200px; background: url("../images/step/04-2.png")
+ no-repeat;
+   
+} 
+.exe:hover {
+   width: 350px; height: 200px; background: url("../images/step/04-1.png")
+ no-repeat;
+   
+} 
+ 
+#step1{
+width: 2000px; height: 100px;
+       padding: 5px;
+      margin: 10px;
+   
+}
+
+.service { width: 315px; height:130px; background: url("../images/step/1.png")
+ no-repeat; }
+ 
+ .service:hover { width: 315px; height: 130px; background: url("../images/step/1-1.png") no-repeat; }
+ 
+ 
+ 
+.server { width: 288px; height: 520px; background: url("../images/step/2.png")
+ no-repeat; } 
+ 
+ .server:hover {width: 488px; height: 520px; background: url("../images/step/2-3.png") no-repeat; }

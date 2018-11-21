@@ -24,7 +24,7 @@ public class Encryption {
     public static final int KEY_SIZE = 1024;
 
     public void createKeyRSA(HttpServletRequest request)
-            throws ServletException, IOException 
+            throws Exception
     {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
@@ -50,12 +50,12 @@ public class Encryption {
             request.setAttribute("publicKeyExponent", publicKeyExponent);
 
         } catch (Exception e) {
-            throw new ServletException(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
         }
     }
     
     public void decryptToRSA(HttpServletRequest request)
-            throws ServletException, IOException 
+            throws Exception
     {
         String securedUsername = request.getParameter("securedUsername");
         String securedPassword = request.getParameter("securedPassword");
@@ -73,18 +73,26 @@ public class Encryption {
             request.setAttribute("username", username);
             request.setAttribute("password", password);
         } catch (Exception e) {
-            throw new ServletException(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
         }
     }
     
-    private String decryptFuncToRSA(PrivateKey privateKey, String securedValue) throws Exception 
+    private String decryptFuncToRSA(PrivateKey privateKey, String securedValue) 
+    		throws Exception 
     {
-        Cipher cipher = Cipher.getInstance("RSA");
-        byte[] encryptedBytes = hexToByteArray(securedValue);
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        
-        return new String(decryptedBytes, "utf-8");
+    	try
+    	{
+    		 Cipher cipher = Cipher.getInstance("RSA");
+	        byte[] encryptedBytes = hexToByteArray(securedValue);
+	        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+	        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+	        
+	        return new String(decryptedBytes, "utf-8");
+    	}
+    	catch(Exception e)
+		{
+			throw new Exception(e.getMessage(), e);
+		}
     }
     
     private static byte[] hexToByteArray(String hex) {
@@ -100,7 +108,8 @@ public class Encryption {
         return bytes;
     }
     
-    public String encryptToSha512(String str) throws Exception
+    public String encryptToSha512(String str) 
+    		throws Exception
     {
 		try{
 			MessageDigest di = MessageDigest.getInstance("SHA-512");

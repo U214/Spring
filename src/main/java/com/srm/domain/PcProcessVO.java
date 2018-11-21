@@ -2,17 +2,17 @@ package com.srm.domain;
 
 import java.util.Date;
 
-// PC ÇÁ·Î¼¼½º Á¤º¸ VO
+//PC í”„ë¡œì„¸ìŠ¤ ì •ë³´ VO
 public class PcProcessVO {
-	// PC ÄÚµå
+	// PC ì½”ë“œ
 	private String pcCode;
-	// ÇÁ·Î¼¼½º¸í
+	// í”„ë¡œì„¸ìŠ¤ëª…
 	private String processName;
-	// ÇÁ·Î¼¼½º »ı¼º ÀÏÀÚ
+	// í”„ë¡œì„¸ìŠ¤ ìƒì„± ì¼ì
 	private Date createDate;
-	// ÇÁ·Î¼¼½º ¸Ş¸ğ¸® »ç¿ë·®
+	// í”„ë¡œì„¸ìŠ¤ ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰
 	private int memoryUsage;
-	// µ¥ÀÌÅÍ µî·Ï ÀÏÀÚ
+	// ë°ì´í„° ë“±ë¡ ì¼ì
 	private Date dataRegDate;
 	
 	public String getPcCode() {

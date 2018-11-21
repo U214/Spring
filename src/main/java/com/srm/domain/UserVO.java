@@ -3,19 +3,19 @@ package com.srm.domain;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-// »ç¿ëÀÚ Á¤º¸ VO
+// íšŒì› ì •ë³´ VO
 public class UserVO {
-	// »ç¿ëÀÚ ¾ÆÀÌµğ
+	// íšŒì› ì•„ì´ë””
 	@Size(max=25)
 	@Pattern(regexp="^[0-9a-zA-Z][0-9a-zA-Z\\_\\-\\.\\+]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\\_\\-]*[0-9a-zA-Z](\\.[a-zA-Z]{2,6}){1,2}$") 
 	private String id;
-	// »ç¿ëÀÚ ¾ÏÈ£
+	// íšŒì› ë¹„ë°€ë²ˆí˜¸
 	private String password;
-	// »ç¿ëÀÚ ÀÌ¸§
+	// íšŒì› ì´ë¦„
 	@Size(max=10)
-	@Pattern(regexp="^[_0-9a-z¤¡-¤Ó°¡-ÆR-]*$/i")
+	@Pattern(regexp="^[_0-9a-zê°€-í£-]*$/i")
 	private String name;
-	// °èÁ¤ µî·Ï ÀÏÀÚ
+	// ê³„ì • ë“±ë¡ ì¼ì
 	private String regDate;
 	
 	public String getName() {

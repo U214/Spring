@@ -2,23 +2,23 @@ package com.srm.domain;
 
 import java.util.Date;
 
-// PC ½Ç½Ã°£ Á¤º¸ VO
+//PC ì‹¤ì‹œê°„ ì •ë³´ VO
 public class PcRealTimeVO {
-	// PC ÄÚµå
+	// PC ì½”ë“œ
 	private String pcCode;
-	// CPU »ç¿ë·®
+	// CPU ì‚¬ìš©ëŸ‰
 	private int cpuUsage;
-	// CPU ¿Âµµ1
+	// CPU ì˜¨ë„1
 	private int cpuTemperature1;
-	// CPU ¿Âµµ2
+	// CPU ì˜¨ë„2
 	private int cpuTemperature2;
-	// µğ½ºÅ© »ç¿ë·®
+	// ë””ìŠ¤í¬ ì‚¬ìš©ëŸ‰
 	private int diskUsage;
-	// ¸Ş¸ğ¸® »ç¿ë·®
+	// ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰
 	private int memoryUsage;
-	// °¡»ó ¸Ş¸ğ¸® »ç¿ë·®
+	// ê°€ìƒ ë©”ëª¨ë¦¬ ì‚¬ìš©ëŸ‰
 	private int virtualMemoryUsage;
-	// µ¥ÀÌÅÍ µî·Ï ÀÏÀÚ
+	// ë°ì´í„° ë“±ë¡ ì¼ì
 	private Date dataRegDate;
 	
 	public String getPcCode() {

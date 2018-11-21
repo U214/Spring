@@ -3,17 +3,17 @@ package com.srm.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.srm.domain.PcInfoVO;
 import com.srm.domain.PcNetworkVO;
-import com.srm.util.SqlSessionFactoryBean;
 
+@Repository("PcNetworkDAO")
 public class PcNetworkDAO {
 	private SqlSession mybatis;
 	
 	public PcNetworkDAO()
 	{
-		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
 	}
 	
 	public void insertPcNetwork(PcNetworkVO vo)

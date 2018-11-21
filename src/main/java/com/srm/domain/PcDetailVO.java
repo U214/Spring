@@ -2,27 +2,27 @@ package com.srm.domain;
 
 import java.util.Date;
 
-// PC »ó¼¼ Á¤º¸ VO
+//PC ìƒì„¸ ì •ë³´ VO
 public class PcDetailVO {
-	// PC ÄÚµå
+	// PC ì½”ë“œ
 	private String pcCode;
-	// ±âÁ¸ µ¥ÀÌÅÍ Á¸Àç ¿©ºÎ ÇÃ·¡±×
+	// ê¸°ì¡´ ë°ì´í„° ì¡´ì¬ ì—¬ë¶€ í”Œë˜ê·¸
 	private boolean dataCheckFlag;
-	// Á¦Á¶»ç¸í
+	// ì œì¡°ì‚¬ëª…
 	private String makerName;
-	// ¸ğµ¨¸í
+	// ëª¨ë¸ëª…
 	private String modelName;
-	// OS¸í
+	// OSëª…
 	private String osName;
-	// BIOS¸í
+	// BIOSëª…
 	private String biosName;
-	// µğ½ºÅ© ÀüÃ¼ ¿ë·®
+	// ë””ìŠ¤í¬ ì „ì²´ ìš©ëŸ‰
 	private int diskSize;
-	// ¸Ş¸ğ¸® ÀüÃ¼ ¿ë·®
+	// ë©”ëª¨ë¦¬ ì „ì²´ ìš©ëŸ‰
 	private int memorySize;
-	// °¡»ó ¸Ş¸ğ¸® ÀüÃ¼ ¿ë·®
+	// ê°€ìƒ ë©”ëª¨ë¦¬ ì „ì²´ ìš©ëŸ‰
 	private int virtualMemorySize;
-	// ¼³Ä¡ ÀÏÀÚ
+	// ì„¤ì¹˜ ì¼ì
 	private Date installDate;
 	
 	public String getPcCode() {

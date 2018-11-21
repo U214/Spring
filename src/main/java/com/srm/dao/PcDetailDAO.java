@@ -3,17 +3,19 @@ package com.srm.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.srm.domain.PcDetailVO;
 import com.srm.domain.PcInfoVO;
-import com.srm.util.SqlSessionFactoryBean;
 
+@Repository("PcDetailDAO")
 public class PcDetailDAO {
+	@Autowired
 	private SqlSession mybatis;
 	
 	public PcDetailDAO()
 	{
-		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
 	}
 	
 	public void insertPcDetail(PcDetailVO vo)

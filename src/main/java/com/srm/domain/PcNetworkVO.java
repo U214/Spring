@@ -2,17 +2,17 @@ package com.srm.domain;
 
 import java.util.Date;
 
-// PC ³×Æ®¿öÅ© Á¤º¸ VO
+//PC ë„¤íŠ¸ì›Œí¬ ì •ë³´ VO
 public class PcNetworkVO {
-	// PC ÄÚµå
+	// PC ì½”ë“œ
 	private String pcCode;
-	// ¹ŞÀº ¾ç
+	// ë°›ì€ ì–‘
 	private int receivedAmount;
-	// º¸³½ ¾ç
+	// ë³´ë‚¸ ì–‘
 	private int sentAmount;
-	// Æ®·¡ÇÈ ¾ç ÇÕ°è
+	// íŠ¸ë˜í”½ ì–‘ í•©ê³„
 	private int totalAmount;
-	// µ¥ÀÌÅÍ µî·Ï ÀÏÀÚ
+	// ë°ì´í„° ë“±ë¡ ì¼ì
 	private Date dataRegdate;
 	
 	public String getPcCode() {

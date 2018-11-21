@@ -13,31 +13,35 @@ import com.srm.dao.PcRealTimeDAO;
 import com.srm.dao.UserDAO;
 import com.srm.domain.PcInfoVO;
 import com.srm.domain.UserVO;
-import com.srm.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl {
 
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
 	private PcInfoDAO pcInfoDAO;
+	@Autowired
 	private PcDetailDAO pcDetailDAO;
+	@Autowired
 	private PcRealTimeDAO pcRealTimeDAO;
+	@Autowired
 	private PcNetworkDAO pcNetworkDAO;
+	@Autowired
 	private PcProcessDAO pcProcessDAO;
 	
-	// È¸¿ø Ãß°¡
+	// íšŒì› ì¶”ê°€
 	public void insertUser(UserVO vo) {
-		// Áßº¹È®ÀÎÀº js¿¡¼­ Ã³¸®
+		// ì¤‘ë³µí™•ì¸ì€ jsì—ì„œ ì²˜ë¦¬
 		userDAO.insertUser(vo);
 	}
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	public void deleteUser(UserVO vo) {
-		// »ç¿ëÀÚÀÇ PC ¸ñ·ÏÀ» °¡Á®¿Â´Ù.
+		// ì‚¬ìš©ìì˜ PC ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤.
 		List<PcInfoVO> pcList = pcInfoDAO.getPcInfoList(vo);
 		
-		// PC ¸ñ·Ï¸¶´Ù ÀúÀåµÈ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
+		// PC ëª©ë¡ë§ˆë‹¤ ì €ì¥ëœ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
 		for (int i = 0; i < pcList.size(); ++i)
 		{
 			pcDetailDAO.deletePcDetail(pcList.get(i));
@@ -46,31 +50,31 @@ public class UserServiceImpl {
 			pcProcessDAO.deletePcProcess(pcList.get(i));
 		}
 		
-		// PC ¸ñ·ÏÀ» »èÁ¦ÇÑ´Ù.
+		// PC ëª©ë¡ì„ ì‚­ì œí•œë‹¤.
 		pcInfoDAO.deletePcInfo(vo);
 		
-		// »ç¿ëÀÚ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
+		// ì‚¬ìš©ì ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
 		userDAO.deleteUser(vo);
 	}
 
-	// ·Î±×ÀÎ Ã¼Å©
+	// ë¡œê·¸ì¸ ì²´í¬
 	public void loginCheck(UserVO vo) throws Exception {
 		UserVO getUser = userDAO.getUser(vo); 
 		
 		if (getUser == null ||
 			getUser.getPassword() != vo.getPassword())
 		{
-			throw new Exception("·Î±×ÀÎ ½ÇÆĞ");
+			throw new Exception("ë¡œê·¸ì¸ ì‹¤íŒ¨");
 		}
 	}
 
-	// È¸¿ø Á¤º¸ ¾÷µ¥ÀÌÆ®
+	// íšŒì› ì •ë³´ ì—…ë°ì´íŠ¸
 	public void updateUser(UserVO vo) {
 		// TODO Auto-generated method stub
 
 	}
 	
-	// È¸¿ø Á¤º¸ °¡Á®¿À±â
+	// íšŒì› ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	public void getUser() {
 		
 	}

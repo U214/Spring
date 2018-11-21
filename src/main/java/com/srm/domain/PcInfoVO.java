@@ -1,16 +1,16 @@
 package com.srm.domain;
 
-// PC ±âº» Á¤º¸ VO
+//PC ê¸°ë³¸ ì •ë³´ VO
 public class PcInfoVO {
-	// PC ÄÚµå
+	// PC ì½”ë“œ
 	private String pcCode;
-	// PC ÀÌ¸§
+	// PC ì´ë¦„
 	private String pcName;
-	// MACÁÖ¼Ò
+	// MACì£¼ì†Œ
 	private String macAddress;
-	// IPÁÖ¼Ò
+	// IPì£¼ì†Œ
 	private String ipAddress;
-	// »ç¿ëÀÚ ¾ÆÀÌµğ
+	// ì‚¬ìš©ì ì•„ì´ë””
 	private String userId;
 	
 	public String getPcCode() {

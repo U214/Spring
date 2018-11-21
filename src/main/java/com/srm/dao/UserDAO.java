@@ -1,35 +1,36 @@
 package com.srm.dao;
 
-import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.srm.domain.UserVO;
-import com.srm.util.SqlSessionFactoryBean;
+import com.srm.mapper.UserMapper;
 
+@Repository("UserDAO")
 public class UserDAO {
-	private SqlSession mybatis;
+	private final UserMapper userMapper;
 	
-	public UserDAO()
+	public UserDAO(UserMapper userMapper)
 	{
-		mybatis = SqlSessionFactoryBean.getSqlSessionInstance();
+		this.userMapper = userMapper;
 	}
 	
 	public void insertUser(UserVO vo)
 	{
-		mybatis.insert("UserDAO.insertUser", vo);
+		//mybatis.insert("UserDAO.insertUser", vo);
 	}
 	
 	public void updateUser(UserVO vo)
 	{
-		mybatis.update("UserDAO.updateUser", vo);
+		//mybatis.update("UserDAO.updateUser", vo);
 	}
 	
 	public void deleteUser(UserVO vo)
 	{
-		mybatis.delete("UserDAO.deleteUser", vo);
+		//mybatis.delete("UserDAO.deleteUser", vo);
 	}
 	
 	public UserVO getUser(UserVO vo)
 	{
-		return (UserVO) mybatis.selectOne("UserDAO.getUser", vo);
+		return userMapper.getUser(vo.getId());
 	}
 }
