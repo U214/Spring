@@ -32,7 +32,6 @@ public class UserServiceImpl {
 	
 	// 회원 추가
 	public void insertUser(UserVO vo) {
-		// 중복확인은 js에서 처리
 		userDAO.insertUser(vo);
 	}
 
@@ -58,7 +57,8 @@ public class UserServiceImpl {
 	}
 
 	// 로그인 체크
-	public void loginCheck(UserVO vo) throws Exception {
+	public void checkLogin(UserVO vo) throws Exception 
+	{
 		UserVO getUser = userDAO.getUser(vo); 
 		
 		if (getUser == null ||
@@ -74,9 +74,14 @@ public class UserServiceImpl {
 
 	}
 	
-	// 회원 정보 가져오기
-	public void getUser() {
+	// 아이디 중복 확인
+	public boolean checkId(UserVO vo) throws Exception 
+	{
+		UserVO getUser = userDAO.getUser(vo); 
 		
+		if (getUser == null) return true;
+		
+		return false;
 	}
 
 }

@@ -296,7 +296,7 @@
 //- Balazs Galambosi: maintainer (CHANGELOG.txt)
 //- Patrick Brunner (patrickb1991@gmail.com)
 //- Michael Herf: ssc_pulse Algorithm
-
+/*
 function ssc_init() {
 if (!document.body) return;
 var e = document.body;
@@ -592,4 +592,6 @@ if (ischrome) {
 ssc_addEvent("mousedown", ssc_mousedown);
 ssc_addEvent("mousewheel", ssc_wheel);
 ssc_addEvent("load", ssc_init)
+
 }
+*/

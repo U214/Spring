@@ -29,10 +29,16 @@ dependencies {
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	
+	/* mybatis 사용 */
 	compile("org.springframework.boot:spring-boot-starter-jdbc:2.0.1.RELEASE")
     compile("mysql:mysql-connector-java:5.1.46")
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1")
     
+    /* jsp 사용 */
 	compile("org.apache.tomcat.embed:tomcat-embed-jasper:9.0.12")
 	compile("javax.servlet:jstl:1.2")
+	
+	/* ajax에 사용되는 json mapper */
+	compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+	
 }

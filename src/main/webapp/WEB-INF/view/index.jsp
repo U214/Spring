@@ -19,7 +19,6 @@
 <script type="text/javascript" src="js/scroll.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/rsa.js"></script>
-<script src="js/modernizr.js"></script>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/animate.min.css" rel="stylesheet">
@@ -58,8 +57,8 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a class="cd-signin" href="#0">로그인</a></li>
-					<li><a class="cd-signup" href="#0">회원가입</a></li>
+					<li><a class="cd-signin" href="${contextPath}/signinandup">로그인</a></li>
+					<li><a class="cd-signup" href="${contextPath}/signinandup">회원가입</a></li>
 				</ul>
 			</div>
 		</div>
@@ -77,8 +76,8 @@
 			<div class="cd-user-modal">
 				<div class="cd-user-modal-container">
 					<ul class="cd-switcher">
-						<li><a class="cd-signin" href="#0">로그인</a></li>
-						<li><a class="cd-signup" href="#0">회원가입</a></li>
+						<li><a class="cd-signin" href="${contextPath}/signinandup">로그인</a></li>
+						<li><a class="cd-signup" href="${contextPath}/signinandup">회원가입</a></li>
 					</ul>
 
 					<div id="cd-login">
@@ -122,7 +121,7 @@
 
 					<div id="cd-signup">
 						<!-- 회원가입 form -->
-						<form class="cd-form" action="./join/joinOK.jsp" method=post>
+						<form class="cd-form" action="${contextPath}/join" method=post>
 							<p class="fieldset">
 								<label class="image-replace cd-username" for="signup-username">Username</label>
 								<input class="full-width has-padding has-border" name="name"
@@ -134,6 +133,7 @@
 								<label class="image-replace cd-email" for="signup-email">E-mail</label>
 								<input class="full-width has-padding has-border" name="email"
 									id="signup-email" type="email" placeholder="E-mail">
+								<a href="#0" class="email-check">중복체크</a>
 								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
 							</p>
 
@@ -440,13 +440,13 @@
 							</h3>
 							<h4>조 원</h4>
 
-							<li><i class="fa fa-envelope"></i> <span> Email:</span><a
-								href="mailto:someone@yoursite.com">snrnsl2@naver.com</a></li>
+							<li><i class="fa fa-envelope"></i> <br><span> Email:</span><a
+								href="mailto:someone@yoursite.com">snrnsl2naver.com</a></li>
 							<p></p>
 						</div>
 						<div class="social-icons">
 							<ul>
-								<li><a class="facebook" href="#www.naver.com"><i
+								<li><a class="facebook" href="#"><i
 										class="fa fa-facebook"></i></a></li>
 								<li><a class="twitter" href="#"><i
 										class="fa fa-twitter"></i></a></li>
