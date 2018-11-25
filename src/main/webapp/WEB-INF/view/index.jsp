@@ -15,6 +15,7 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="js/scroll.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
@@ -37,7 +38,6 @@
 </head>
 
 <body>
-
 	<div class="main-nav">
 		<div class="container">
 			<div class="navbar-header">
@@ -49,7 +49,7 @@
 				</button>
 				<a class="navbar-brand"><h1>
 						<img src="images/sclogo.png">
-					</h1></a> <a class="navbar-brand" href="./index.jsp">
+					</h1></a> <a class="navbar-brand" href="${contextPath}/">
 					<h2>
 						<img class="img-responsive" src="images/logo.png" alt="logo">
 					</h2>
@@ -57,8 +57,7 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a class="cd-signin" href="${contextPath}/signinandup">로그인</a></li>
-					<li><a class="cd-signup" href="${contextPath}/signinandup">회원가입</a></li>
+					<li><a class="cd-signin" href="${contextPath}/login">로그인</a></li>
 				</ul>
 			</div>
 		</div>
@@ -69,121 +68,104 @@
 
 	<header id="home">
 	<div class="main-nav">
-		<div id="join"></div>
 
-		<!-- 로그인 부 -->
-		<div id="login">
-			<div class="cd-user-modal">
-				<div class="cd-user-modal-container">
-					<ul class="cd-switcher">
-						<li><a class="cd-signin" href="${contextPath}/signinandup">로그인</a></li>
-						<li><a class="cd-signup" href="${contextPath}/signinandup">회원가입</a></li>
-					</ul>
-
-					<div id="cd-login">
-						<!-- log in form -->
-						<div class="cd-form">
-							<p class="fieldset">
-								<label class="image-replace cd-username" for="signin-id">E-mail</label>
-								<input class="full-width has-padding has-border" name="email"
-									id="signin-email" type="email" placeholder="E-mail">
-								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
-							</p>
-							<p class="fieldset">
-								<label class="image-replace cd-password" for="signin-password">Password</label>
-								<input class="full-width has-padding has-border" name="pw"
-									id="signin-password" type="password" placeholder="Password">
-								<a href="#0" class="hide-password">Show</a>
-								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
-							</p>
-							<p class="fieldset">
-								<input type="hidden" id="rsaPublicKeyModulus"
-									value="${publicKeyModulus}" /> <input type="hidden"
-									id="rsaPublicKeyExponent" value="${publicKeyExponent}" />
-							<form id="securedindex" name="securedindex"
-								action="${contextPath}/login" method="post"
-								style="display: none;">
-								<input type="hidden" name="securedUsername" id="securedUsername"
-									value="" /> <input type="hidden" name="securedPassword"
-									id="securedPassword" value="" />
-							</form>
-							<a href="./loginFailure.jsp"
-								onclick="validateEncryptedForm(); return false;"> <input
-								class="full-width" type="submit" value="Login"></a>
-							</p>
-
-							<p class="cd-form-bottom-message">
-								<a href="#0">비밀번호 찾기</a>
-							</p>
-						</div>
+		<!-- 로그인, 회원가입, 비번찾기 -->
+		<div class="cd-user-modal">
+			<div class="cd-user-modal-container">
+				<!-- 로그인 -->
+				<div id="cd-login">
+					<div class="cd-form">
+						<p class="fieldset">
+							<label class="image-replace cd-username" for="signin-id">E-mail</label>
+							<input class="full-width has-padding has-border" name="email"
+								id="signin-email" type="email" placeholder="E-mail">
+							<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
+						</p>
+						<p class="fieldset">
+							<label class="image-replace cd-password" for="signin-password">Password</label>
+							<input class="full-width has-padding has-border" name="pw"
+								id="signin-password" type="password" placeholder="Password">
+							<a href="#0" class="hide-password">Show</a>
+							<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
+						</p>
+						<a href="./loginFailure.jsp" onclick="validateEncryptedForm(); return false;"> 
+							<input class="full-width" type="submit" value="Login">
+						</a>	
+	
+						<span class="cd-form-bottom-message">
+							<a id="signup">계정이 없으신가요?</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<a id="forgotpw">비밀번호 찾기</a>
+						</span>
 					</div>
-
-
-					<div id="cd-signup">
-						<!-- 회원가입 form -->
-						<form class="cd-form" action="${contextPath}/join" method=post>
-							<p class="fieldset">
-								<label class="image-replace cd-username" for="signup-username">Username</label>
-								<input class="full-width has-padding has-border" name="name"
-									id="signup-username" type="text" placeholder="Username">
-								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
-							</p>
-
-							<p class="fieldset">
-								<label class="image-replace cd-email" for="signup-email">E-mail</label>
-								<input class="full-width has-padding has-border" name="email"
-									id="signup-email" type="email" placeholder="E-mail">
-								<a href="#0" class="email-check">중복체크</a>
-								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
-							</p>
-
-							<p class="fieldset">
-								<label class="image-replace cd-password" for="signup-password">Password</label>
-								<input class="full-width has-padding has-border" name="pw"
-									id="signup-password" type="password" placeholder="Password">
-								<a href="#0" class="hide-password">Show</a>
-								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
-							</p>
-
-							<p class="fieldset">
-								<input class="full-width has-padding" type="submit"
-									value="회   원   가   입">
-							</p>
-						</form>
-
-
-					</div>
-					<!-- cd-signup -->
-
-					<div id="cd-reset-password">
-						<!-- reset password form -->
-						<p class="cd-form-message">비밀번호를 찾으시려면 기입 해 주세요.</p>
-
+				</div>
+	
+				<!-- 회원가입 -->
+				<div id="cd-signup">
+					<form class="cd-form" id="signup-form" action="${contextPath}/join" method=post>
+						<p class="fieldset">
+							<label class="image-replace cd-username" for="signup-username">Username</label>
+							<input class="full-width has-padding has-border" name="name"
+								id="signup_username" type="text" placeholder="Username">
+							<span class="cd-error-message"></span> 
+						</p>
+	
+						<p class="fieldset">
+							<label class="image-replace cd-email" for="signup-email">E-mail</label>
+							<input class="full-width has-padding has-border" name="email"
+								id="signup_email" type="email" placeholder="E-mail">
+							<span class="cd-error-message"></span>
+						</p>
+	
+						<p class="fieldset">
+							<label class="image-replace cd-password" for="signup-password">Password</label>
+							<input class="full-width has-padding has-border" name="pw"
+								id="signup_password" type="password" placeholder="Password">
+							<a href="#0" class="hide-password">Show</a>
+							<span class="cd-error-message"></span>
+						</p>
+	
+						<p class="fieldset">
+							<input class="full-width has-padding" type="submit"
+								value="회   원   가   입">
+						</p>
+					</form>
+				</div>
+	
+				<!-- 비번찾기 -->
+				<div id="cd-reset-password">
+					<p class="cd-form-message">비밀번호를 찾으시려면 기입 해 주세요.</p>
 						<form class="cd-form" action="./find/findPWP.jsp">
 							<p class="fieldset">
-
 								<label class="image-replace cd-email" for="reset-email">E-mail</label>
-								<input class="full-width has-padding has-border" name="email"
-									id="reset-email" type="email" placeholder="E-mail">
+								<input class="full-width has-padding has-border" name="email" id="reset-email" type="email" placeholder="E-mail">
 								<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
 							</p>
-
 							<p class="fieldset">
-								<input class="full-width has-padding" type="submit"
-									value="비밀번호 재발급 받기">
+								<input class="full-width has-padding" type="submit" value="비밀번호 재발급 받기">
 							</p>
 						</form>
-
-						<p class="cd-form-bottom-message">
+					<p class="cd-form-bottom-message">
 							<a href="#0">로그인으로 돌아가기</a>
 						</p>
-					</div>
-					<!-- cd-reset-password -->
+				</div>
+				
+				<!-- 닫기버튼, 히든폼 -->
+				<div>
+					<p class="fieldset">
+						<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" /> 
+						<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />
+						<form id="securedindex" name="securedindex" action="${contextPath}/login" method="post" style="display: none;">
+							<input type="hidden" name="securedUsername" id="securedUsername" value="" /> 
+							<input type="hidden" name="securedPassword" id="securedPassword" value="" />
+						</form>
+					
 					<a href="#0" class="cd-close-form">Close</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<div id="home-slider" class="carousel slide carousel-fade"
 		data-ride="carousel">
 		<div class="carousel-inner">
@@ -265,8 +247,11 @@
 			</div>
 		</div>
 	</div>
-	<!--/#main-nav--> </header>
+	<!--/#main-nav--> 
+	
+	</header>
 	<!--/#home-->
+	
 	<section id="services">
 	<div class="container">
 		<div class="heading wow fadeInUp" data-wow-duration="1000ms"

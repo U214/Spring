@@ -167,22 +167,21 @@ jQuery(document).ready(function($){
 		formSignup = formModal.find('#cd-signup'),
 		formForgotPassword = formModal.find('#cd-reset-password'),
 		formModalTab = $('.cd-switcher'),
-		tabLogin = formModalTab.children('li').eq(0).children('a'),
-		tabSignup = formModalTab.children('li').eq(1).children('a'),
-		forgotPasswordLink = formLogin.find('.cd-form-bottom-message a'),
+		forgotPasswordLink = formLogin.find('#forgotpw'),
+		signUpLink = formLogin.find('#signup'),
+		singUpUserName = formSignup.find("#signup_username"),
+		singUpEmail = formSignup.find("#signup_email"),
+		singUpPassword = formSignup.find("#signup_password"),
+		singUpButton = formSignup.find(".full-width has-padding"),
 		backToLoginLink = formForgotPassword.find('.cd-form-bottom-message a'),
 		mainNav = $('.main-nav'),
-		pathName = $(location).attr('pathname').split("/")[2];
+		pathName = location.pathname.split("/")[2];
 	
 	if (pathName == "login")
 	{
 		login_selected();
 	}
-	else if (pathName == "join")
-	{
-		signup_selected();
-	}
-	
+/*
 	//창열기
 	mainNav.on('click', function(event){
 		mainNav.children('ul').toggleClass('is-visible');
@@ -191,7 +190,7 @@ jQuery(document).ready(function($){
 	//각각 폼
 	mainNav.on('click', '.cd-signup', signup_selected);
 	mainNav.on('click', '.cd-signin', login_selected);
-
+*/
 	//닫기
 	formModal.on('click', function(event){
 		if( $(event.target).is(formModal) || $(event.target).is('.cd-close-form') ) {
@@ -205,12 +204,6 @@ jQuery(document).ready(function($){
     		formModal.removeClass('is-visible');
 	    }
     });
-
-	//다른 탭쪽
-	formModalTab.on('click', function(event) {
-		event.preventDefault();
-		( $(event.target).is( tabLogin ) ) ? login_selected() : signup_selected();
-	});
 
 	//패스워드 숨기기 보여주기부
 	$('.hide-password').on('click', function(){
@@ -228,6 +221,12 @@ jQuery(document).ready(function($){
 		event.preventDefault();
 		forgot_password_selected();
 	});
+	
+	//가입 링크
+	signUpLink.on('click', function(event){
+		event.preventDefault();
+		signup_selected();
+	});
 
 	//다시돌아가기
 	backToLoginLink.on('click', function(event){
@@ -235,14 +234,72 @@ jQuery(document).ready(function($){
 		login_selected();
 	});
 
+	// 제이쿼리 검증 정규식 메서드 추가
+	jQuery.validator.addMethod("usernameRegExp", function(value, element) {
+        return this.optional(element) || /^[_0-9a-z가-힣-]*$/i.test(value);
+	}); 
+	
+	//회원가입 입력값 검증 
+	$('#signup-form').validate({
+		rules:{
+			signup_username:{
+				required:true, 
+				rangelength:[2,10], 
+				usernameRegExp: true
+			},
+			
+			signup_email:{	
+				required:true, 
+				rangelength:[1,25], 
+				email: true,
+				remote: {type: "get", url:"./checkjoinid.ajax" }
+			},
+			
+			signup_password:{
+				required:true
+			}
+        },
+        messages:{
+        	signup_username:{
+				required:"닉네임을 입력하세요.",
+				minlength: jQuery.validator.format("{0}자 이상 입력하세요"),
+	            maxlength: jQuery.validator.format("{0}자 이하 입력하세요"),
+				usernameRegExp: jQuery.validator.format("알파벳, 숫자, 한글만 사용가능합니다.")
+			},
+			
+			signup_email:{	
+				required:"이메일을 입력하세요.",
+				email: jQuery.validator.format("올바른 이메일 주소를 입력하세요."),
+				remote: jQuery.validator.format("이미 등록된 이메일입니다.")
+			},
+			
+			signup_password:{
+				required:"비밀번호를 입력하세요."
+			}
+		},
+		
+		invalidHandler: function(event, validator) {
+			console.log(event);
+			console.log(validator);
+		},
+		
+		errorPlacement: function(error, element) {
+			var span = element["0"].next("span");
+		    
+		    if ('textContent' in span) {
+		        span.textContent = error;
+		    } else {
+		        span.innerText = error;
+		    }
+		}
+	});
+	
 	function login_selected(){
 		mainNav.children('ul').removeClass('is-visible');
 		formModal.addClass('is-visible');
 		formLogin.addClass('is-selected');
 		formSignup.removeClass('is-selected');
 		formForgotPassword.removeClass('is-selected');
-		tabLogin.addClass('selected');
-		tabSignup.removeClass('selected');
 	}
 
 	function signup_selected(){
@@ -251,8 +308,6 @@ jQuery(document).ready(function($){
 		formLogin.removeClass('is-selected');
 		formSignup.addClass('is-selected');
 		formForgotPassword.removeClass('is-selected');
-		tabLogin.removeClass('selected');
-		tabSignup.addClass('selected');
 	}
 
 	function forgot_password_selected(){

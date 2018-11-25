@@ -37,9 +37,9 @@ public class UserController {
 		return mav;
 	}
 	
-	// 로그인 & 회원가입 화면
-	@RequestMapping(value= {"/signinandup"}, method=RequestMethod.GET)
-	public ModelAndView signInUpView(
+	// 로그인 화면
+	@RequestMapping(value= {"/login"}, method=RequestMethod.GET)
+	public ModelAndView loginView(
 			HttpServletRequest request,
 			ModelAndView mav,
 			Encryption encryption) throws Exception 
@@ -53,7 +53,7 @@ public class UserController {
 		return mav;
 	}
 	
-	
+	// 로그인 인증
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(
 			@ModelAttribute @Valid UserVO vo,
