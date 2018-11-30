@@ -1,5 +1,7 @@
 package com.srm.web;
 
+import java.security.PrivateKey;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,8 +26,8 @@ public class UserController {
 	public ModelAndView handleException(Exception e)
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("exception", e);
-		mav.setViewName("/common/error.jsp");
+		mav.addObject("exception", e.toString());
+		mav.setViewName("error");
 		return mav;
 	}
 	
@@ -56,15 +58,19 @@ public class UserController {
 	// 로그인 인증
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(
-			@ModelAttribute @Valid UserVO vo,
+			@RequestParam(value="securedEmail") String email,
+			@RequestParam(value="securedPassword") String password,
+			@Valid UserVO vo,
 			BindingResult bindingResult,
 			UserServiceImpl service, 
 			Encryption encryption,
-			HttpServletRequest request,
-			HttpSession session) throws Exception 
+			HttpServletRequest request) throws Exception 
 	{
-		encryption.decryptToRSA(request);
-		vo.setPassword(encryption.encryptToSha512((String)request.getAttribute("username")));
+		HttpSession session = request.getSession();
+		PrivateKey key = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
+		
+		vo.setEmail(encryption.decryptToRSA(key, email));
+		vo.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
 		
 		service.checkLogin(vo);
 		
@@ -73,14 +79,24 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(
-			@ModelAttribute @Valid UserVO vo,
+			@RequestParam(value="securedEmail") String email,
+			@RequestParam(value="securedPassword") String password,
+			@RequestParam(value="username") String username,
+			@Valid UserVO vo,
 			BindingResult bindingResult,
 			UserServiceImpl service, 
 			Encryption encryption,
 			HttpServletRequest request) throws Exception 
 	{
-		encryption.decryptToRSA(request);
-		vo.setPassword(encryption.encryptToSha512((String)request.getAttribute("username")));
+		HttpSession session = request.getSession();
+		PrivateKey key = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
+		
+		vo.setEmail(encryption.decryptToRSA(key, email));
+		vo.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
+		vo.setName(username);
+		
+		System.out.println(vo.toString());
+		session.removeAttribute("__rsaPrivateKey__");
 		
 		service.insertUser(vo);
 		
@@ -95,7 +111,7 @@ public class UserController {
 	        UserVO vo,
 	        UserServiceImpl service) throws Exception  
 	{
-		vo.setId(id);
+		vo.setEmail(id);
 		return service.checkId(vo);
 	}
 }

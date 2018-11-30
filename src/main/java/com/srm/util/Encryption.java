@@ -1,6 +1,7 @@
 package com.srm.util;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -8,12 +9,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.servlet.ServletException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -23,76 +26,84 @@ import javax.servlet.http.HttpSession;
 public class Encryption {
     public static final int KEY_SIZE = 1024;
 
-    public void createKeyRSA(HttpServletRequest request)
-            throws Exception
-    {
-        try {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(KEY_SIZE);
-            
-            KeyPair keyPair = generator.genKeyPair();
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-            PublicKey publicKey = keyPair.getPublic();
-            PrivateKey privateKey = keyPair.getPrivate();
-
-            HttpSession session = request.getSession();
-            // 세션에 공개키의 문자열을 키로하여 개인키를 저장한다.
-            session.setAttribute("__rsaPrivateKey__", privateKey);
-
-            // 공개키를 문자열로 변환하여 JavaScript RSA 라이브러리 넘겨준다.
-            RSAPublicKeySpec publicSpec = (RSAPublicKeySpec) keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
-
-            String publicKeyModulus = publicSpec.getModulus().toString(16);
-            String publicKeyExponent = publicSpec.getPublicExponent().toString(16);
-
-            request.setAttribute("publicKeyModulus", publicKeyModulus);
-            request.setAttribute("publicKeyExponent", publicKeyExponent);
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage(), e);
-        }
-    }
-    
-    public void decryptToRSA(HttpServletRequest request)
-            throws Exception
-    {
-        String securedUsername = request.getParameter("securedUsername");
-        String securedPassword = request.getParameter("securedPassword");
-        
-        HttpSession session = request.getSession();
-        PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
-        session.removeAttribute("__rsaPrivateKey__"); // 키의 재사용을 막는다. 항상 새로운 키를 받도록 강제.
-
-        if (privateKey == null) throw new RuntimeException("암호화 비밀키 정보를 찾을 수 없습니다");
- 
-        try {
-            String username = decryptFuncToRSA(privateKey, securedUsername);
-            String password = decryptFuncToRSA(privateKey, securedPassword);
-            
-            request.setAttribute("username", username);
-            request.setAttribute("password", password);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage(), e);
-        }
-    }
-    
-    private String decryptFuncToRSA(PrivateKey privateKey, String securedValue) 
-    		throws Exception 
+    public void createKeyRSA(HttpServletRequest request) throws Exception 
     {
     	try
     	{
-    		 Cipher cipher = Cipher.getInstance("RSA");
-	        byte[] encryptedBytes = hexToByteArray(securedValue);
-	        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-	        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+	        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+	        generator.initialize(KEY_SIZE);
 	        
-	        return new String(decryptedBytes, "utf-8");
+	        KeyPair keyPair = generator.genKeyPair();
+	        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+	
+	        PublicKey publicKey = keyPair.getPublic();
+	        PrivateKey privateKey = keyPair.getPrivate();
+	
+	        HttpSession session = request.getSession();
+	        session.setAttribute("__rsaPrivateKey__", privateKey);
+	
+	        RSAPublicKeySpec publicSpec = (RSAPublicKeySpec) keyFactory.getKeySpec(publicKey, RSAPublicKeySpec.class);
+	
+	        String publicKeyModulus = publicSpec.getModulus().toString(16);
+	        String publicKeyExponent = publicSpec.getPublicExponent().toString(16);
+	
+	        request.setAttribute("publicKeyModulus", publicKeyModulus);
+	        request.setAttribute("publicKeyExponent", publicKeyExponent);
     	}
-    	catch(Exception e)
-		{
-			throw new Exception(e.getMessage(), e);
-		}
+    	catch (NoSuchAlgorithmException e)
+    	{
+    		throw new Exception("Encryption/createKeyRSA : NoSuchAlgorithmException " + e.getMessage());
+    	}
+    	catch (InvalidKeySpecException e)
+    	{
+    		throw new Exception("Encryption/createKeyRSA : InvalidKeySpecException " + e.getMessage());
+    	}
+    	catch (Exception e)
+    	{
+    		throw new Exception("Encryption/createKeyRSA : Exception " + e.getMessage());
+    	}
+    }
+    
+    public String decryptToRSA(PrivateKey privateKey, String str) throws Exception
+    {
+    	try
+    	{
+    		if (privateKey == null) throw new RuntimeException("Encryption/decryptToRSA : privateKey == null");
+    		
+			Cipher cipher = Cipher.getInstance("RSA");
+		    byte[] encryptedBytes = hexToByteArray(str);
+		    cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		    byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+		    return new String(decryptedBytes, "utf-8");
+    	}
+	    catch (NoSuchAlgorithmException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : NoSuchAlgorithmException " + e.getMessage());
+    	}
+	    catch (NoSuchPaddingException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : NoSuchPaddingException " + e.getMessage());
+    	}
+	    catch (InvalidKeyException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : InvalidKeyException " + e.getMessage());
+    	}
+	    catch (IllegalBlockSizeException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : IllegalBlockSizeException " + e.getMessage());
+    	}
+	    catch (BadPaddingException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : BadPaddingException " + e.getMessage());
+    	}
+	    catch (UnsupportedEncodingException e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : UnsupportedEncodingException " + e.getMessage());
+    	}
+    	catch (Exception e)
+    	{
+    		throw new Exception("Encryption/decryptFuncToRSA : Exception " + e.getMessage());
+    	}
     }
     
     private static byte[] hexToByteArray(String hex) {
@@ -108,11 +119,11 @@ public class Encryption {
         return bytes;
     }
     
-    public String encryptToSha512(String str) 
-    		throws Exception
+    public String encryptToSha512(String str) throws Exception
     {
-		try{
-			MessageDigest di = MessageDigest.getInstance("SHA-512");
+    	try
+    	{
+	    	MessageDigest di = MessageDigest.getInstance("SHA-512");
 			di.update(str.getBytes());
 			byte messageDigest[] = di.digest();
 			
@@ -121,10 +132,14 @@ public class Encryption {
 				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
 			
 			return hexString.toString();
-		} 
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage(), e);
-		}
+    	}
+    	catch (NoSuchAlgorithmException e)
+    	{
+    		throw new Exception("Encryption/encryptToSha512 : NoSuchAlgorithmException " + e.getMessage());
+    	}
+    	catch (Exception e)
+    	{
+    		throw new Exception("Encryption/encryptToSha512 : Exception " + e.getMessage());
+    	}
 	}
 }

@@ -10,8 +10,8 @@ import com.srm.domain.UserVO;
 @Mapper
 public interface UserMapper {
 	@Select("SELECT * FROM USER_INFO_TB WHERE ID = #{id}")
-	UserVO getUser(@Param("id") String id);
+	UserVO getUser(@Param("id") String email);
 	
-	@Insert("INSERT INTO USER_INFO_TB(ID, PASSWORD, NAME) VALUES(#{id}, #{password}, #{name})")
+	@Insert("INSERT INTO USER_INFO_TB(ID, PASSWORD, NAME) VALUES(#{email}, #{password}, #{name})")
 	void insertUser(UserVO user);
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.srm.domain.UserVO;
 import com.srm.mapper.UserMapper;
 
-@Repository("UserDAO")
+@Repository
 public class UserDAO {
 	private final UserMapper userMapper;
 	
@@ -16,7 +16,7 @@ public class UserDAO {
 	
 	public void insertUser(UserVO vo)
 	{
-		//mybatis.insert("UserDAO.insertUser", vo);
+		userMapper.insertUser(vo);
 	}
 	
 	public void updateUser(UserVO vo)
@@ -31,6 +31,6 @@ public class UserDAO {
 	
 	public UserVO getUser(UserVO vo)
 	{
-		return userMapper.getUser(vo.getId());
+		return userMapper.getUser(vo.getEmail());
 	}
 }

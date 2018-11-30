@@ -8,7 +8,7 @@ public class UserVO {
 	// 회원 아이디
 	@Size(max=25)
 	@Pattern(regexp="^[0-9a-zA-Z][0-9a-zA-Z\\_\\-\\.\\+]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\\_\\-]*[0-9a-zA-Z](\\.[a-zA-Z]{2,6}){1,2}$") 
-	private String id;
+	private String email;
 	// 회원 비밀번호
 	private String password;
 	// 회원 이름
@@ -36,15 +36,14 @@ public class UserVO {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public String getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", password=" + password + ", name=" + name + ", regDate=" + regDate + "]";
+		return "UserVO [email=" + email + ", password=" + password + ", name=" + name + ", regDate=" + regDate + "]";
 	}
 }

@@ -1,72 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>SRM</title>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/wow.min.js"></script>
-<script type="text/javascript" src="js/scroll.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/rsa.js"></script>
-
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/animate.min.css" rel="stylesheet">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="css/lightbox.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'
-	rel='stylesheet' type='text/css'>
-<link rel="shortcut icon" href="images/favicon.ico">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link id="css-preset" href="css/mintcss/mint.css" rel="stylesheet">
-<link rel="stylesheet" href="css/login/style.css">
-</head>
-
-<body>
-	<div class="main-nav">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand"><h1>
-						<img src="images/sclogo.png">
-					</h1></a> <a class="navbar-brand" href="${contextPath}/">
-					<h2>
-						<img class="img-responsive" src="images/logo.png" alt="logo">
-					</h2>
-				</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a class="cd-signin" href="${contextPath}/login">로그인</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="preloader">
-		<i class="fa fa-circle-o-notch fa-spin"></i>
-	</div>
-
-	<header id="home">
+<!-- index.jsp start -->
+<header id="home">
 	<div class="main-nav">
 
 		<!-- 로그인, 회원가입, 비번찾기 -->
@@ -88,7 +23,7 @@
 							<a href="#0" class="hide-password">Show</a>
 							<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
 						</p>
-						<a href="./loginFailure.jsp" onclick="validateEncryptedForm(); return false;"> 
+						<a href="./loginFailure.jsp" onclick="validateEncryptedForm('login'); return false;"> 
 							<input class="full-width" type="submit" value="Login">
 						</a>	
 	
@@ -102,34 +37,31 @@
 	
 				<!-- 회원가입 -->
 				<div id="cd-signup">
-					<form class="cd-form" id="signup-form" action="${contextPath}/join" method=post>
-						<p class="fieldset">
-							<label class="image-replace cd-username" for="signup-username">Username</label>
-							<input class="full-width has-padding has-border" name="name"
-								id="signup_username" type="text" placeholder="Username">
-							<span class="cd-error-message"></span> 
-						</p>
-	
-						<p class="fieldset">
-							<label class="image-replace cd-email" for="signup-email">E-mail</label>
-							<input class="full-width has-padding has-border" name="email"
-								id="signup_email" type="email" placeholder="E-mail">
-							<span class="cd-error-message"></span>
-						</p>
-	
-						<p class="fieldset">
-							<label class="image-replace cd-password" for="signup-password">Password</label>
-							<input class="full-width has-padding has-border" name="pw"
-								id="signup_password" type="password" placeholder="Password">
-							<a href="#0" class="hide-password">Show</a>
-							<span class="cd-error-message"></span>
-						</p>
-	
-						<p class="fieldset">
-							<input class="full-width has-padding" type="submit"
-								value="회   원   가   입">
-						</p>
-					</form>
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">Username</label>
+						<input class="full-width has-padding has-border" name="name"
+							id="signup_username" type="text" placeholder="Username">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">E-mail</label>
+						<input class="full-width has-padding has-border" name="email"
+							id="signup_email" type="email" placeholder="E-mail">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">Password</label>
+						<input class="full-width has-padding has-border" name="pw"
+							id="signup_password" type="password" placeholder="Password">
+						<a href="#0" class="hide-password">Show</a>
+					</p>
+					<p class="fieldset">
+					<a href="./loginFailure.jsp" onclick="validateEncryptedForm('join'); return false;"> 
+						<input class="full-width has-padding" type="submit" value="Sign Up">
+					</a>
+					</p>
+				</form>
 				</div>
 	
 				<!-- 비번찾기 -->
@@ -155,8 +87,8 @@
 					<p class="fieldset">
 						<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}" /> 
 						<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}" />
-						<form id="securedindex" name="securedindex" action="${contextPath}/login" method="post" style="display: none;">
-							<input type="hidden" name="securedUsername" id="securedUsername" value="" /> 
+						<form id="securedindex" name="securedindex" action="${contextPath}/" method="post" style="display: none;">
+							<input type="hidden" name="securedEmail" id="securedEmail" value="" /> 
 							<input type="hidden" name="securedPassword" id="securedPassword" value="" />
 						</form>
 					
@@ -169,15 +101,13 @@
 	<div id="home-slider" class="carousel slide carousel-fade"
 		data-ride="carousel">
 		<div class="carousel-inner">
-			<div class="item active"
-				style="background-image: url(images/slider/s1.png)">
+			<div class="item active" style="background-image: url(images/slider/s1.png)">
 				<div class="caption">
 					<h1 class="animated fadeInLeftBig">
 						SRM의 강력한<span>실시간 모니터링</span>기능
 					</h1>
 
-					<a data-scroll class="btn btn-start animated fadeInUpBig"
-						href="#services">Start now</a>
+					<a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a>
 				</div>
 			</div>
 			<div class="item" style="background-image: url(images/slider/s2.png)">
@@ -222,20 +152,18 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
 
-				<a class="navbar-brand"><h1>
-						<img src="images/sclogo.png">
-					</h1></a> <a class="navbar-brand" href="./index.jsp">
-					<h2>
-						<img class="img-responsive" src="images/logo.png" alt="logo">
-					</h2>
+				<a class="navbar-brand">
+					<h1><img src="images/sclogo.png"></h1>
+				</a> 
+				<a class="navbar-brand" href="${contextPath}/">
+					<h2><img class="img-responsive" src="images/logo.png" alt="logo"></h2>
 				</a>
-
-
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -352,9 +280,6 @@
 										class="fa fa-facebook"></i></a></li>
 								<li><a class="twitter" href="#"><i
 										class="fa fa-twitter"></i></a></li>
-
-
-
 							</ul>
 						</div>
 					</div>
@@ -535,6 +460,4 @@
 		</div>
 	</div>
 	</footer>
-
-</body>
-</html>
+<!-- index.jsp end -->

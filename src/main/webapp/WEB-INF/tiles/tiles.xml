@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+<!-- base tiles layout add -->
+  <definition name="base" template="/WEB-INF/tiles/layouts/base.jsp">
+    <put-attribute name="title" value="SRM 모니터링" />  
+    <put-attribute name="head" value="/WEB-INF/view/head.jsp" />  
+    <put-attribute name="header" value="/WEB-INF/view/header.jsp" />
+  </definition>
+
+<!-- main Page  -->
+  <definition name="main" extends="base"> 
+  	<put-attribute name="pageName" value="main" /> 
+    <put-attribute name="nav" value="/WEB-INF/view/pcList.jsp" />
+    <put-attribute name="body" value="/WEB-INF/view/main.jsp" />  
+  </definition> 
+  
+<!-- index Page  -->
+  <definition name="index" extends="base"> 
+    <put-attribute name="pageName" value="index" />
+    <put-attribute name="body" value="/WEB-INF/view/body/index.jsp" />   
+  </definition> 
+  
+  <definition name="error" template="/WEB-INF/view/common/error.jsp" >
+	<put-attribute name="exception" expression="${exception}" /> 
+  </definition>
+  
+  <definition name="*/*" extends="base">
+  	<put-attribute name="pageName" value="main" /> 
+    <put-attribute name="body" value="WEB-INF/view/{1}/{2}.jsp" />
+  </definition>
+
+</tiles-definitions>

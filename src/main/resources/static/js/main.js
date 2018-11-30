@@ -161,7 +161,7 @@ jQuery(function($) {
 	
 });
 // 로그인 관련
-jQuery(document).ready(function($){
+$().ready(function(){
 	var formModal = $('.cd-user-modal'),
 		formLogin = formModal.find('#cd-login'),
 		formSignup = formModal.find('#cd-signup'),
@@ -175,8 +175,63 @@ jQuery(document).ready(function($){
 		singUpButton = formSignup.find(".full-width has-padding"),
 		backToLoginLink = formForgotPassword.find('.cd-form-bottom-message a'),
 		mainNav = $('.main-nav'),
-		pathName = location.pathname.split("/")[2];
-	
+		pathName = location.pathname.split("/")[2],
+		msgStr = 'danger:: 경고 메세지!';
+
+	var nav = function () {
+        $('.gw-nav > li > a').click(function () {
+            var gw_nav = $('.gw-nav');
+            gw_nav.find('li').removeClass('active');
+            $('.gw-nav > li > ul > li').removeClass('active');
+
+            var checkElement = $(this).parent();
+            var ulDom = checkElement.find('.gw-submenu')[0];
+
+            if (ulDom == undefined) {
+                checkElement.addClass('active');
+                $('.gw-nav').find('li').find('ul:visible').slideUp();
+                return;
+            }
+            if (ulDom.style.display != 'block') {
+                gw_nav.find('li').find('ul:visible').slideUp();
+                gw_nav.find('li.init-arrow-up').removeClass('init-arrow-up').addClass('arrow-down');
+                gw_nav.find('li.arrow-up').removeClass('arrow-up').addClass('arrow-down');
+                checkElement.removeClass('init-arrow-down');
+                checkElement.removeClass('arrow-down');
+                checkElement.addClass('arrow-up');
+                checkElement.addClass('active');
+                checkElement.find('ul').slideDown(300);
+            } else {
+                checkElement.removeClass('init-arrow-up');
+                checkElement.removeClass('arrow-up');
+                checkElement.removeClass('active');
+                checkElement.addClass('arrow-down');
+                checkElement.find('ul').slideUp(300);
+
+            }
+        });
+        $('.gw-nav > li > ul > li > a').click(function () {
+            $(this).parent().parent().parent().removeClass('active');
+            $('.gw-nav > li > ul > li').removeClass('active');
+            $(this).parent().addClass('active')
+        });
+    };
+    
+    nav();
+    
+	$('button').each(function () {
+		var btn = $(this);
+		var typeAlert = btn.attr('class').replace('btn btn-', '');
+		var iconMode = btn.closest('fieldset').attr('data-icon');
+
+		btn.on('click', function (e) {
+			e.preventDefault();
+
+			Msg.iconMode = iconMode;
+			Msg[typeAlert](msgStr);
+		});
+	});
+		
 	if (pathName == "login")
 	{
 		login_selected();
@@ -241,6 +296,11 @@ jQuery(document).ready(function($){
 	
 	//회원가입 입력값 검증 
 	$('#signup-form').validate({
+		
+		errorPlacement: function(error, element) {
+			error.appendTo( element.next("span") );
+		},
+		
 		rules:{
 			signup_username:{
 				required:true, 
@@ -276,22 +336,8 @@ jQuery(document).ready(function($){
 			signup_password:{
 				required:"비밀번호를 입력하세요."
 			}
-		},
-		
-		invalidHandler: function(event, validator) {
-			console.log(event);
-			console.log(validator);
-		},
-		
-		errorPlacement: function(error, element) {
-			var span = element["0"].next("span");
-		    
-		    if ('textContent' in span) {
-		        span.textContent = error;
-		    } else {
-		        span.innerText = error;
-		    }
 		}
+		
 	});
 	
 	function login_selected(){
@@ -373,36 +419,56 @@ jQuery.fn.putCursorAtEnd = function() {
 	});
 };
 
-function validateEncryptedForm() {
-    var username = document.getElementById("signin-email").value;
-    var password = document.getElementById("signin-password").value;
-    if (!username || !password) {
-        alert("이메일/비밀번호를 입력해주세요.");
-        return false;
-    }
+function validateEncryptedForm(type) {
+	var email, password, username = null;
+	
+	if (type != "login")
+	{
+		email = $("#signin-email").val();
+	    password = $("#signin-password").val();
+	    
+	    
+	}
+	else (type == "join")
+	{
+		username = $("#signup_username").val();
+		email = $("#signup_email").val();
+	    password = $("#signup_password").val();
+	}
+	
     try {
-        var rsaPublicKeyModulus = document.getElementById("rsaPublicKeyModulus").value;
-        var rsaPublicKeyExponent = document.getElementById("rsaPublicKeyExponent").value;
-        submitEncryptedForm(username,password, rsaPublicKeyModulus, rsaPublicKeyExponent);
+        var rsaPublicKeyModulus = $("#rsaPublicKeyModulus").val();
+        var rsaPublicKeyExponent = $("#rsaPublicKeyExponent").val();
+        submitEncryptedForm(username, password, email, rsaPublicKeyModulus, rsaPublicKeyExponent);
     } catch(err) {
         alert(err);
     }
     return false;
 }
 
-function submitEncryptedForm(username, password, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
+function submitEncryptedForm(username, password, email, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
     var rsa = new RSAKey();
     rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
 
     // 사용자ID와 비밀번호를 RSA로 암호화한다.
-    var securedUsername = rsa.encrypt(username);
+    var securedEmail = rsa.encrypt(email);
     var securedPassword = rsa.encrypt(password);
 
-    // POST 로그인 폼에 값을 설정하고 발행(submit) 한다.
-    var securedLoginForm = document.getElementById("securedindex");
-    securedLoginForm.securedUsername.value = securedUsername;
-    securedLoginForm.securedPassword.value = securedPassword;
-    securedLoginForm.submit();
+    // POST  폼에 값을 설정하고 발행(submit) 한다.
+    var securedForm = $("#securedindex");
+    securedForm.find("#securedEmail").val(securedEmail);
+    securedForm.find("#securedPassword").val(securedPassword);
+    
+    if (username != null)
+    {
+    	var $tag = $("<input name=username>");
+    	$tag.val(username);
+    	securedForm.append($tag);
+    }
+    
+    var actionValue = securedForm.attr("action").concat((username == null) ? "login" : "join");
+    securedForm.attr("action", actionValue);
+    securedForm.submit();
 }
 
 
