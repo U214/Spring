@@ -5,29 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.srm.dao.PcDetailDAO;
-import com.srm.dao.PcInfoDAO;
-import com.srm.dao.PcNetworkDAO;
-import com.srm.dao.PcProcessDAO;
-import com.srm.dao.PcRealTimeDAO;
-import com.srm.dao.UserDAO;
-import com.srm.domain.PcInfoVO;
 import com.srm.domain.UserVO;
 
-@Service("userService")
+@Service
 public class UserServiceImpl {
-
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
 	private PcInfoDAO pcInfoDAO;
-	@Autowired
 	private PcDetailDAO pcDetailDAO;
-	@Autowired
 	private PcRealTimeDAO pcRealTimeDAO;
-	@Autowired
 	private PcNetworkDAO pcNetworkDAO;
-	@Autowired
 	private PcProcessDAO pcProcessDAO;
 	
 	// 회원 추가

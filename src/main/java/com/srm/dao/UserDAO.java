@@ -1,5 +1,6 @@
 package com.srm.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.srm.domain.UserVO;
@@ -8,9 +9,10 @@ import com.srm.mapper.UserMapper;
 @Repository
 public class UserDAO {
 	private final UserMapper userMapper;
-	
+
 	public UserDAO(UserMapper userMapper)
 	{
+		System.out.println("UserDAO");
 		this.userMapper = userMapper;
 	}
 	

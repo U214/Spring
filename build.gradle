@@ -30,6 +30,8 @@ dependencies {
 		web : 스프링 mvc를 사용하는 RESTful을 포함한 웹 구축용 스타터
 			  기본 컨테이너가 톰캣이다
 		test : JUnit, Hamcrest 및 Mockito를 포함한 라이브러리를 사용하여 Spring Boot 애플리케이션을 테스트
+		devtools : 개발할때 캐싱은 비효율적이므로 기본적으로 캐싱을 비활성화한다.
+					클래스패스에 파일이 변경될때마다 자동으로 프로그램이 재시작된다
 	*/
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-devtools')

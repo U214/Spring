@@ -115,3 +115,17 @@ public class UserController {
 		return service.checkId(vo);
 	}
 }
+
+/*
+ 	스프링 MVC 자동 설정 목록
+ 	- ContentNegotiatingViewResolver 및 BeanNameViewResolver 빈 포함
+ 	- WebJars 지원을 포함, 정적 자원의 제공을 지원
+ 	- Converter, GenericConverter 및 Formatter Bean의 자동 등록
+ 	- HttpMessageConverters 지원
+ 	- MessageCodesResolver 자동 등록
+    - 정적 index.html 지원.
+    - ConfigurableWebBindingInitializer Bean의 자동 사용
+    
+    개인적으로 기능을 더 추가하고 싶은 경우
+    @Configuration 클래스를 사용
+ */
