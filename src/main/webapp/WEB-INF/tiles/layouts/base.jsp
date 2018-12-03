@@ -13,6 +13,7 @@
 </head>
 <body>
 <tiles:insertAttribute name="header"/>
+<tiles:insertAttribute name="nav"/>
 <tiles:insertAttribute name="body"/>
 </body>
 </html>

@@ -51,4 +51,6 @@ dependencies {
 	
 	/* ajax에 사용되는 json mapper */
 	compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+	
+	compile("org.projectlombok:lombok:1.16.18")
 }

@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PcNetworkDAO">
-	<insert id="insertPcNetwork" parameterType="pcNetwork">
-		<![CDATA[
-			INSERT INTO PC_NETWORK_TB(
-			PC_CD, 
-			AMT_RECEIVED, 
-			AMT_SENT, 
-			AMT_TOTAL)
-			VALUES(
-			#{pcCode}, 
-			#{receivedAmount}, 
-			#{sentAmount}, 
-			#{totalAmount})
-		]]>
-	</insert>
 	
-	<delete id="deletePcNetwork">
-		<![CDATA[
-			DELETE PC_NETWORK_TB
-			WHERE PC_CD = #{pcCode}
-		]]>
-	</delete>
-	
-	<select id="getPcNetwork" resultType="pcNetwork">
-		<![CDATA[
-			SELECT *
-			FROM PC_NETWORK_TB
-			WHERE PC_CD = #{pcCode}
-		]]>
-	</select>
-	
-	<select id="getPcNetworkList" resultType="pcNetwork">
-		<![CDATA[
-			SELECT *
-			FROM PC_NETWORK_TB
-			WHERE PC_CD = #{pcCode}
-			ORDER BY SEQ DESC
-		]]>
-	</select>
 </mapper>
