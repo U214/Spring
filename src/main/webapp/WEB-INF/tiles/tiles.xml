@@ -9,13 +9,14 @@
     <put-attribute name="title" value="SRM 모니터링" />  
     <put-attribute name="head" value="/WEB-INF/view/head.jsp" />  
     <put-attribute name="header" value="/WEB-INF/view/header.jsp" />
+    <put-attribute name="nav" value="" />
   </definition>
 
 <!-- main Page  -->
   <definition name="main" extends="base"> 
   	<put-attribute name="pageName" value="main" /> 
     <put-attribute name="nav" value="/WEB-INF/view/pcList.jsp" />
-    <put-attribute name="body" value="/WEB-INF/view/main.jsp" />  
+    <put-attribute name="body" value="/WEB-INF/view/body/main.jsp" />  
   </definition> 
   
 <!-- index Page  -->

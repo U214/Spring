@@ -3,7 +3,10 @@ package com.srm.domain;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.Data;
+
 // 회원 정보 VO
+@Data
 public class UserVO {
 	// 회원 아이디
 	@Size(max=25)
@@ -17,33 +20,4 @@ public class UserVO {
 	private String name;
 	// 계정 등록 일자
 	private String regDate;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	@Override
-	public String toString() {
-		return "UserVO [email=" + email + ", password=" + password + ", name=" + name + ", regDate=" + regDate + "]";
-	}
 }

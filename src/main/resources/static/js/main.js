@@ -422,14 +422,14 @@ jQuery.fn.putCursorAtEnd = function() {
 function validateEncryptedForm(type) {
 	var email, password, username = null;
 	
-	if (type != "login")
+	if (type == "login")
 	{
-		email = $("#signin-email").val();
-	    password = $("#signin-password").val();
+		email = $("#signin_email").val();
+	    password = $("#signin_password").val();
 	    
 	    
 	}
-	else (type == "join")
+	else if (type == "join")
 	{
 		username = $("#signup_username").val();
 		email = $("#signup_email").val();
@@ -459,14 +459,16 @@ function submitEncryptedForm(username, password, email, rsaPublicKeyModulus, rsa
     securedForm.find("#securedEmail").val(securedEmail);
     securedForm.find("#securedPassword").val(securedPassword);
     
+    var actionValue = securedForm.attr("action").concat("login"); 
+    
     if (username != null)
     {
     	var $tag = $("<input name=username>");
     	$tag.val(username);
     	securedForm.append($tag);
+    	ctionValue = securedForm.attr("action").concat("join"); 
     }
     
-    var actionValue = securedForm.attr("action").concat((username == null) ? "login" : "join");
     securedForm.attr("action", actionValue);
     securedForm.submit();
 }

@@ -10,9 +10,6 @@
 		<typeAlias alias="user" type="com.srm.domain.UserVO"/>
 		<typeAlias alias="pcInfo" type="com.srm.domain.PcInfoVO"/>
 		<typeAlias alias="pcDetail" type="com.srm.domain.PcDetailVO"/>
-		<typeAlias alias="pcRealtime" type="com.srm.domain.PcRealtimeVO"/>
-		<typeAlias alias="pcNetwork" type="com.srm.domain.PcNetworkVO"/>
-		<typeAlias alias="pcProcess" type="com.srm.domain.PcProcessVO"/>
 	</typeAliases>
 	
 	<!-- DataSource 설정 -->
@@ -32,9 +29,11 @@
 	<mappers>
 		<mapper resource="mappings/user-mapping.xml"/>
 		<mapper resource="mappings/pcinfo-mapping.xml"/>
+		<!-- 
 		<mapper resource="mappings/pcdetail-mapping.xml"/>
 		<mapper resource="mappings/pcrealtime-mapping.xml"/>
 		<mapper resource="mappings/pcnetwork-mapping.xml"/>
 		<mapper resource="mappings/pcprocess-mapping.xml"/>
+	 -->
 	</mappers>
 </configuration>

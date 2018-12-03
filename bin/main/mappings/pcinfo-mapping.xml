@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PcInfoDAO">
+<mapper namespace="PcInfo">
+	<resultMap type="pcInfo" id="pcInfoAddDataFL">
+		<id property="pcCode" column="PC_CD" />
+	    <result column="PC_CD" property="pcCode"/>
+	    <result column="PC_NM" property="pcName"/>
+	    <result column="ADDR_MAC" property="macAddress"/>
+	    <result column="ADDR_IP" property="ipAddress"/>
+	    <result column="EMAIL" property="email"/>
+	    <association property="pcDetail" column="detail.DATACHK_FL"
+	    			javaType="pcDetail" resultMap="pcDetailDataFL" />
+	</resultMap>
+
+	<resultMap type="pcDetail" id="pcDetailDataFL">
+		<id property="pcCode" column="PC_CD" />
+	    <result column="DATACHK_FL" property="dataCheckFlag"/>
+	</resultMap>
+
 	<insert id="insertPcInfo" parameterType="pcInfo">
 		<![CDATA[
 			INSERT INTO PC_INFO_TB(PC_CD, ADDR_MAC, PC_NM, ADDR_IP, ID)
@@ -25,11 +41,5 @@
 		]]>
 	</delete>
 	
-	<select id="getPcInfo" resultType="pcInfo">
-		<![CDATA[
-			SELECT *
-			FROM PC_INFO_TB
-			WHERE ADDR_MAC = #{macAddress}
-		]]>
-	</select>
+	
 </mapper>

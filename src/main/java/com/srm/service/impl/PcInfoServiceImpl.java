@@ -1,37 +1,25 @@
 package com.srm.service.impl;
 
-import com.srm.service.PcInfoService;
+import java.util.List;
 
-public class PcInfoServiceImpl implements PcInfoService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-	@Override
-	public void insertPcInfo() {
-		// TODO Auto-generated method stub
+import com.srm.domain.PcInfoVO;
+import com.srm.domain.UserVO;
+import com.srm.mapper.PcInfoMapper;
 
-	}
+@Service
+@Transactional
+public class PcInfoServiceImpl {
 
-	@Override
-	public void deletePcInfo() {
-		// TODO Auto-generated method stub
+	@Autowired
+	private PcInfoMapper pcInfoMapper;
 
-	}
-
-	@Override
-	public void getPcList() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getPcInfo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getPcDetail() {
-		// TODO Auto-generated method stub
-
+	public List getPcInfo(UserVO user) 
+	{
+		return pcInfoMapper.getPcInfo(user);
 	}
 
 }

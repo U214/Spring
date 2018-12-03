@@ -9,17 +9,17 @@
 			<div class="cd-user-modal-container">
 				<!-- 로그인 -->
 				<div id="cd-login">
-					<div class="cd-form">
+					<form class="cd-form">
 						<p class="fieldset">
 							<label class="image-replace cd-username" for="signin-id">E-mail</label>
 							<input class="full-width has-padding has-border" name="email"
-								id="signin-email" type="email" placeholder="E-mail">
+								id="signin_email" type="email" placeholder="E-mail">
 							<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
 						</p>
 						<p class="fieldset">
 							<label class="image-replace cd-password" for="signin-password">Password</label>
 							<input class="full-width has-padding has-border" name="pw"
-								id="signin-password" type="password" placeholder="Password">
+								id="signin_password" type="password" placeholder="Password">
 							<a href="#0" class="hide-password">Show</a>
 							<!-- <span class="cd-error-message">[Error]::   입력 해 주세요</span> -->
 						</p>
@@ -32,7 +32,7 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a id="forgotpw">비밀번호 찾기</a>
 						</span>
-					</div>
+					</form>
 				</div>
 	
 				<!-- 회원가입 -->

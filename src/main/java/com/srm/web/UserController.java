@@ -1,6 +1,7 @@
-package com.srm.web;
+﻿package com.srm.web;
 
 import java.security.PrivateKey;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,21 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.srm.domain.PcInfoVO;
 import com.srm.domain.UserVO;
+import com.srm.service.impl.PcInfoServiceImpl;
 import com.srm.service.impl.UserServiceImpl;
 import com.srm.util.Encryption;
 
 @Controller
 public class UserController {
 	@Autowired
-	private UserServiceImpl service;
+	private UserServiceImpl userService;
+	@Autowired
+	private PcInfoServiceImpl pcInfoService;
 	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception e)
@@ -64,7 +68,7 @@ public class UserController {
 	public String login(
 			@RequestParam(value="securedEmail") String email,
 			@RequestParam(value="securedPassword") String password,
-			@Valid UserVO vo,
+			@Valid UserVO user,
 			BindingResult bindingResult,
 			Encryption encryption,
 			HttpServletRequest request) throws Exception 
@@ -72,10 +76,24 @@ public class UserController {
 		HttpSession session = request.getSession();
 		PrivateKey key = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
 		
-		vo.setEmail(encryption.decryptToRSA(key, email));
-		vo.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
+		user.setEmail(encryption.decryptToRSA(key, email));
+		user.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
 		
-		service.checkLogin(vo);
+		session.removeAttribute("__rsaPrivateKey__");
+		
+		userService.checkLogin(user);
+		
+		// 세션에 사용자 이메일
+		session.setAttribute("email", user.getEmail());
+		
+		// 사용자가 가진 PC목록 가져와서 request에 담기
+		List pcList = pcInfoService.getPcInfo(user);
+		
+		System.out.println(pcList.toString());
+		if (pcList.size() != 0)
+		{
+			request.setAttribute("pcList", pcList);
+		}
 		
 		return "main";
 	}
@@ -85,7 +103,7 @@ public class UserController {
 			@RequestParam(value="securedEmail") String email,
 			@RequestParam(value="securedPassword") String password,
 			@RequestParam(value="username") String username,
-			@Valid UserVO vo,
+			@Valid UserVO user,
 			BindingResult bindingResult,
 			Encryption encryption,
 			HttpServletRequest request) throws Exception 
@@ -93,14 +111,13 @@ public class UserController {
 		HttpSession session = request.getSession();
 		PrivateKey key = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
 		
-		vo.setEmail(encryption.decryptToRSA(key, email));
-		vo.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
-		vo.setName(username);
+		user.setEmail(encryption.decryptToRSA(key, email));
+		user.setPassword(encryption.encryptToSha512(encryption.decryptToRSA(key, password)));
+		user.setName(username);
 		
-		System.out.println(vo.toString());
 		session.removeAttribute("__rsaPrivateKey__");
 		
-		service.insertUser(vo);
+		userService.insertUser(user);
 		
 		return "redirect:/";
 	}
@@ -113,7 +130,7 @@ public class UserController {
 	        UserVO vo) throws Exception  
 	{
 		vo.setEmail(id);
-		return service.checkId(vo);
+		return userService.checkId(vo);
 	}
 }
 

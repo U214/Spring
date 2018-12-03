@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+<!-- main.jsp start -->
 <div id="section">
 	<div class="container">
 		<c:choose>
-	    	<c:when test="${pc == null}">
+			<c:when test="${param.pcList == null}">
 			<div id="step1">
 				<div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms"
 					data-wow-delay="300ms">
@@ -216,48 +216,4 @@
 		</c:choose>
 	</div>
 </div>
-	
-<!-- --pc 등록 -->
-<div class="modal fade" id="server-add" role="dialog">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">서버 등록 하기</h4>
-
-			</div>
-			<div class="modal-body">
-				<p>
-				<form class="cd-form" id="cd-pc" action="../main/insertPC.jsp"
-					method="post">
-					<p class="fieldset">
-						<label class="cd-pcname" for="pcname"><h4>Server
-								name</h4></label> <input class="full-width has-padding has-border"
-							id="pcname" name="pcname" type="text" placeholder="Server name">
-						<span class="cd-error-message">[Error]:: 입력 해 주세요</span>
-					</p>
-					<p class="fieldset">
-						<label class="cd-ip" for="ip"><h4>IP Address</h4></label> <input
-							class="full-width has-padding has-border" id="ip" name="ip"
-							type="text" placeholder="ex) 123.456.789.0"> <span
-							class="cd-error-message">[Error]:: 입력 해 주세요</span>
-					</p>
-					<p class="fieldset">
-						<label class="cd-mac" for="mac"><h4>MAC Address</h4></label> <input
-							class="full-width has-padding has-border" id="mac" name="mac"
-							type="text" placeholder="ex) A1:B2:C3:D4:E5:F6"> <span
-							class="cd-error-message">[Error]:: 입력 해 주세요</span>
-					</p>
-
-					<p class="fieldset">
-						<input class="full-width" type="submit" value="등록하기">
-					</p>
-				</form>
-
-			</div>
-
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="pwinput" role="dialog">
+<!-- main.jsp end -->

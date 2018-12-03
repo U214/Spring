@@ -1,4 +1,4 @@
-package com.srm;
+﻿package com.srm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 	@ComponentScan : @Component 검사 활성화
 	@EnableAutoConfiguration : 스프링 부트의 자동 구성 활성화
 */
-@SpringBootApplication(scanBasePackages= {"com.srm"})
+@SpringBootApplication
 public class SrMspringApplication {
 
 	public static void main(String[] args) {

@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PcProcessDAO">
-	<insert id="insertPcProcess" parameterType="pcProcess">
-		<![CDATA[
-			INSERT INTO PC_PROCESS_TB(
-			PC_CD, 
-			PROC_NM, 
-			CREATE_DT, 
-			USAGE_MEM)
-			VALUES(
-			#{pcCode}, 
-			#{processName}, 
-			#{createDate}, 
-			#{memoryUsage})
-		]]>
-	</insert>
 	
-	<delete id="deletePcProcess">
-		<![CDATA[
-			DELETE PC_PROCESS_TB
-			WHERE PC_CD = #{pcCode}
-		]]>
-	</delete>
-	
-	<select id="getPcProcess" resultType="pcProcess">
-		<![CDATA[
-			SELECT *
-			FROM PC_PROCESS_TB
-			WHERE PC_CD = #{pcCode}
-		]]>
-	</select>
-	
-	<select id="getPcProcessList" resultType="pcProcess">
-		<![CDATA[
-			SELECT *
-			FROM PC_PROCESS_TB
-			WHERE PC_CD = #{pcCode}
-			ORDER BY SEQ DESC
-		]]>
-	</select>
 </mapper>
