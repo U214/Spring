@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +23,9 @@ import com.srm.util.Encryption;
 
 @Controller
 public class UserController {
+	@Autowired
+	private UserServiceImpl service;
+	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception e)
 	{
@@ -62,7 +66,6 @@ public class UserController {
 			@RequestParam(value="securedPassword") String password,
 			@Valid UserVO vo,
 			BindingResult bindingResult,
-			UserServiceImpl service, 
 			Encryption encryption,
 			HttpServletRequest request) throws Exception 
 	{
@@ -84,7 +87,6 @@ public class UserController {
 			@RequestParam(value="username") String username,
 			@Valid UserVO vo,
 			BindingResult bindingResult,
-			UserServiceImpl service, 
 			Encryption encryption,
 			HttpServletRequest request) throws Exception 
 	{
@@ -108,8 +110,7 @@ public class UserController {
 	@RequestMapping(value= "/checkjoinid.ajax", method=RequestMethod.GET)
 	public @ResponseBody boolean CheckJoinID(  
 	        @RequestParam("id") String id,
-	        UserVO vo,
-	        UserServiceImpl service) throws Exception  
+	        UserVO vo) throws Exception  
 	{
 		vo.setEmail(id);
 		return service.checkId(vo);
