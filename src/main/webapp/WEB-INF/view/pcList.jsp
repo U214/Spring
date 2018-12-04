@@ -70,40 +70,34 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">서버 등록 하기</h4>
-
 			</div>
 			<div class="modal-body">
 				<p>
-				<form class="cd-form" id="cd-pc" action="../main/insertPC.jsp"
-					method="post">
+				<form class="cd-form" id="cd-pc" action="${contextPath}/regserver" method="post">
 					<p class="fieldset">
-						<label class="cd-pcname" for="pcname"><h4>Server
-								name</h4></label> <input class="full-width has-padding has-border"
-							id="pcname" name="pcname" type="text" placeholder="Server name">
+						<label class="cd-pcname" for="pcname"><h4>Server name</h4></label> 
+						<input class="full-width has-padding has-border"
+							id="pcName" name="pcName" type="text" placeholder="Server name">
 						<span class="cd-error-message">[Error]:: 입력 해 주세요</span>
 					</p>
 					<p class="fieldset">
-						<label class="cd-ip" for="ip"><h4>IP Address</h4></label> <input
-							class="full-width has-padding has-border" id="ip" name="ip"
-							type="text" placeholder="ex) 123.456.789.0"> <span
-							class="cd-error-message">[Error]:: 입력 해 주세요</span>
+						<label class="cd-ip" for="ip"><h4>IP Address</h4></label> 
+						<input class="full-width has-padding has-border" id="ipAddress" name="ipAddress"
+							type="text" placeholder="ex) 123.456.789.0"> 
+						<span class="cd-error-message">[Error]:: 입력 해 주세요</span>
 					</p>
 					<p class="fieldset">
-						<label class="cd-mac" for="mac"><h4>MAC Address</h4></label> <input
-							class="full-width has-padding has-border" id="mac" name="mac"
-							type="text" placeholder="ex) A1:B2:C3:D4:E5:F6"> <span
-							class="cd-error-message">[Error]:: 입력 해 주세요</span>
+						<label class="cd-mac" for="mac"><h4>MAC Address</h4></label> 
+						<input class="full-width has-padding has-border" id="macAddress" name="macAddress"
+							type="text" placeholder="ex) A1:B2:C3:D4:E5:F6"> 
+						<span class="cd-error-message">[Error]:: 입력 해 주세요</span>
 					</p>
-
 					<p class="fieldset">
 						<input class="full-width" type="submit" value="등록하기">
 					</p>
 				</form>
-
 			</div>
-
 		</div>
 	</div>
 </div>
-
 <!-- pcList.jsp end -->

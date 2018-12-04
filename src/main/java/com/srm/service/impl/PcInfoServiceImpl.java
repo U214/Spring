@@ -21,5 +21,9 @@ public class PcInfoServiceImpl {
 	{
 		return pcInfoMapper.getPcInfo(user);
 	}
-
+	
+	// 서버 추가
+	public void insertUser(PcInfoVO pcInfo) {
+		pcInfoMapper.insertPcInfo(pcInfo);
+	} 
 }

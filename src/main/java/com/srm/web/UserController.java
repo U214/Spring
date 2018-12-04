@@ -106,9 +106,8 @@ public class UserController {
 			@Valid UserVO user,
 			BindingResult bindingResult,
 			Encryption encryption,
-			HttpServletRequest request) throws Exception 
+			HttpSession session) throws Exception 
 	{
-		HttpSession session = request.getSession();
 		PrivateKey key = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
 		
 		user.setEmail(encryption.decryptToRSA(key, email));
